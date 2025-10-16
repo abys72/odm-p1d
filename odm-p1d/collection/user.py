@@ -1,11 +1,9 @@
-from beanie import Document, Indexed
-from pydantic import Field
+from odmantic import Model, Field, Index
 from datetime import datetime
 
-class User(Document):
-    name: str
-    email: Indexed(str, unique=True)
-    created_at: datetime = Field(default_factory=datetime.utcnow)
 
-    class Settings:
-        name = "user"
+class User(Model):
+    name: str
+    password: str
+    email: str = Field(index=True, unique=True)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
