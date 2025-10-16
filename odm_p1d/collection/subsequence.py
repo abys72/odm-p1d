@@ -8,5 +8,6 @@ class Subsequence(Model):
     subsequence: List[List[int]]
     created_at: datetime = Field(default_factory=datetime.utcnow, index=True)
 
-    class Config:
-        collection = "subsequences"
+    model_config = {
+        "collection": "subsequence"
+    }
