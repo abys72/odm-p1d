@@ -1,14 +1,8 @@
-from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
-from beanie import init_beanie
-from pymongo.asynchronous.database import AsyncDatabase
-
-from collection.product import Product
-from collection.recomendation import Recommendation
-from collection.user import User
+from motor.motor_asyncio import AsyncIOMotorClient
+from odmantic import AIOEngine
 
 
-async def init_db() -> AsyncDatabase:
-    client: AsyncIOMotorClient = AsyncIOMotorClient("mongodb://mongo:27017")
-    db: AsyncDatabase| AsyncIOMotorDatabase = client["tienda"]
-    await init_beanie(database=db, document_models=[User, Product, Recommendation])
-    return db
+def create_connection(db_url: str, db_name: str) -> AIOEngine:
+    client = AsyncIOMotorClient(db_url)
+    engine = AIOEngine(client=client, database=db_name)
+    return engine
