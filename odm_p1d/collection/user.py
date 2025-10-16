@@ -7,3 +7,7 @@ class User(Model):
     password: str
     email: str = Field(index=True, unique=True)
     created_at: datetime = Field(default_factory=datetime.utcnow)
+
+    model_config = {
+        "collection": "user"
+    }
